@@ -51,3 +51,18 @@ LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_32_BIT_ONLY := true
 
 include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := shim_boringssl.c
+
+LOCAL_SHARED_LIBRARIES := libcrypto libssl
+LOCAL_EXPORT_C_INCLUDE_DIRS := external/boringssl/src/include
+
+LOCAL_MODULE := libshim_boringssl
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+
+LOCAL_32_BIT_ONLY := true
+
+include $(BUILD_SHARED_LIBRARY)
