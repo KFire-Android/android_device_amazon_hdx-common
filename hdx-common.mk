@@ -181,7 +181,8 @@ PRODUCT_PACKAGES += \
 	libshim_libbinder \
 	libshim_liblog \
 	libshim_libwvm \
-	libshim_boringssl
+	libshim_boringssl \
+	libshim_libgui
 
 # QC Perf
 ADDITIONAL_BUILD_PROPERTIES += \
