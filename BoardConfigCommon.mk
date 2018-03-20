@@ -148,6 +148,9 @@ WIFI_DRIVER_MODULE_NAME 		:= "wlan"
 # NFC
 BOARD_HAVE_NFC := false
 
+# Non-PIE Executables
+LINKER_NON_PIE_EXECUTABLES_HEADER_DIR := device/amazon/hdx-common
+
 # Vold
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_MAX_PARTITIONS := 32
