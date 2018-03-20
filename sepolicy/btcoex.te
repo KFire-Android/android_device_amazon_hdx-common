@@ -1,0 +1,8 @@
+# btcoex
+type btcoex, domain;
+type btcoex_exec, exec_type, file_type;
+
+init_daemon_domain(btcoex)
+
+allow btcoex btcoex_exec:file rx_file_perms;
+

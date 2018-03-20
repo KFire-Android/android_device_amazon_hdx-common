@@ -6,6 +6,8 @@ allow mpdecision socket_device:dir { write add_name };
 
 allow mpdecision mpdecision_data:file create_file_perms;
 allow mpdecision mpdecision_data:dir rw_dir_perms;
-#allow mpdecision system_data_file:file { append open };
+allow mpdecision system_data_file:dir { add_name write };
+# /data/system/default_values
+# allow mpdecision system_data_file:file { append create open };
 
 binder_use(mpdecision)

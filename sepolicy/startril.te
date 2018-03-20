@@ -19,4 +19,5 @@ allow startril sysfs_startril:file rw_file_perms;
 allow startril sysfs_startril:dir rw_dir_perms;
 allow startril proc_startril:file r_file_perms;
 allow startril toolbox_exec:file { execute execute_no_trans getattr open read };
-
+allow startril sysfs:dir { open read };
+allow startril sysfs:file { getattr setattr };
