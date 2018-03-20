@@ -329,9 +329,6 @@ on property:bluetooth.dun.status=running
 on property:bluetooth.dun.status=stopped
     stop bt-dun
 
-on property:ro.bluetooth.ftm_enabled=true
-    start ftmd
-
 on property:bluetooth.startbtsnoop=true
     start btsnoop
 
@@ -343,16 +340,10 @@ service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
     user root
     oneshot
 
-service qcom-c_main-sh /system/bin/sh /init.class_main.sh
-    class main
-    user root
-    oneshot
-
 on property:vold.decrypt=trigger_shutdown_framework
     stop sensors
 
 on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
     start sensors
     start config_bluetooth
 
@@ -362,10 +353,6 @@ on property:persist.env.fastdorm.enabled=true
 #service cnd /system/bin/cnd
 #    class late_start
 #    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
@@ -445,13 +432,6 @@ service btsnoop /system/bin/btsnoop
    class late_start
    disabled
    oneshot
-
-service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
-    class late_start
-    user root
-    group bluetooth net_bt_admin misc net_bt_stack qcom_diag
-    disabled
-    oneshot
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
@@ -585,12 +565,6 @@ service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     disabled
     oneshot
 
-service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
-    class late_start
-    group wifi inet
-    disabled
-    oneshot
-
 service wifi-crda /system/bin/sh /system/etc/init.crda.sh
    class late_start
    user root
@@ -630,21 +604,13 @@ service battery_monitor /system/bin/battery_monitor
     group system
     disabled
 
-service ril-daemon1 /system/bin/rild -c 1
+service ril-daemon /system/bin/rild
     class main
-    socket rild1 stream 660 root radio
-    socket rild-debug1 stream 660 radio system
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
     user root
     disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
-
-service ril-daemon2 /system/bin/rild -c 2
-    class main
-    socket rild2 stream 660 root radio
-    socket rild-debug2 stream 660 radio system
-    user root
-    disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
+    group radio cache inet misc audio readproc wakelock sdcard_r sdcard_rw diag qcom_diag log
 
 service profiler_daemon /system/bin/profiler_daemon
     class late_start
@@ -667,20 +633,6 @@ service ssr_diag /system/bin/ssr_diag
     group system
     disabled
 
-# Define fastmmi
-service fastmmi /system/bin/mmi
-    user root
-    group root
-    disabled
-
-service fastmmisrv /system/bin/sh /init.qcom.factory.sh
-    user root
-    disabled
-    oneshot
-
-on ffbm
-    start fastmmisrv
-
 service hvdcp /system/bin/hvdcp
     class core
     user root
@@ -696,16 +648,6 @@ service charger_monitor /system/bin/charger_monitor
     user system
     group system
     disabled
-
-#service qbcharger /charger -m 1
-#    disabled
-#    oneshot
-
-#on property:sys.qbcharger.enable=true
-#    start qbcharger
-
-#on property:sys.qbcharger.enable=false
-#    stop qbcharger
 
 service diag_mdlog_start /system/bin/diag_mdlog
     class late_start
@@ -728,11 +670,3 @@ on property:persist.sys.qlogd=1
     start qlogd
 on property:persist.sys.qlogd=0
     stop qlogd
-
-service rootagent /system/bin/sh /system/etc/init.qcom.rootagent.sh
-    disabled
-    oneshot
-on property:persist.sys.rootagent=1
-    start rootagent
-on property:persist.sys.rootagent=0
-    stop rootagent

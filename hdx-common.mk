@@ -38,15 +38,12 @@ PRODUCT_PACKAGES += \
 	init.qcom.rc \
 	init.qcom.usb.rc \
 	init.target.rc \
-	init.class_main.sh \
 	init.qcom.class_core.sh \
-	init.qcom.factory.sh \
 	init.qcom.sensor.sh \
 	init.qcom.sh \
 	init.qcom.ssr.sh \
 	init.qcom.usb.sh \
-	ueventd.qcom.rc \
-	init.recovery.qcom.rc
+	ueventd.qcom.rc
 
 # Audio/Media
 PRODUCT_COPY_FILES += \
