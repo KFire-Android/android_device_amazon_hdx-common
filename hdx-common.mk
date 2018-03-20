@@ -249,7 +249,8 @@ ADDITIONAL_BUILD_PROPERTIES += \
 	ro.ril.usb.port.qmi=qmi_usb \
 	ro.ril.usb.port.rmnet=rmnet_usb \
 	telephony.sms.receive=true \
-	keyguard.ori.timeout=350
+	keyguard.ori.timeout=350 \
+	persist.lineage.startril=0
 
 # audio/media props
 ADDITIONAL_BUILD_PROPERTIES += \

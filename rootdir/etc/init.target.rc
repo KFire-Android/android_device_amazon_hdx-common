@@ -321,14 +321,15 @@ service trigger_prov /system/bin/sh /sbin/check_prov.sh
     user root
     oneshot
 
-#restart Start RIL script once disk decrypts
-on property:vold.decrypt=trigger_reset_main
+#start RIL script once data is mounted
+on property:vold.post_fs_data_done=1 && property:persist.lineage.startril=1
     start startril
 
 #conditional start RIL for non-wifi devices
 service startril /system/bin/wan_start
     class main
     oneshot
+    disabled
 
 on property:wlan.driver.status=ok
     chown system system /sys/kernel/debug/ieee80211/phy0/ath6kl/dtim_ext
